@@ -217,36 +217,27 @@ export default function App() {
         <StatsBar courses={courses} />
 
         {/* View Switch / Content Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 mb-3.5 sm:mb-4">
-          <div>
-            <h2 className="text-base sm:text-xl font-bold text-slate-900 flex items-center space-x-2">
-              <span>
-                {viewMode === 'table'
-                  ? 'ตารางเรียนประจำสัปดาห์'
-                  : 'รายการวิชาเรียนแยกตามวัน'}
-              </span>
-              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-slate-200/80 text-slate-700">
-                {courses.length} รายการ
-              </span>
-            </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
+        <div className="flex items-center justify-between gap-2.5 mb-3 sm:mb-4">
+          <h2 className="text-base sm:text-lg font-bold text-slate-900 flex items-center space-x-2">
+            <span>
               {viewMode === 'table'
-                ? 'แสดงภาพรวมช่วงเวลาเรียนตั้งแต่วันจันทร์ถึงวันศุกร์'
-                : 'แสดงรายละเอียดของแต่ละวิชาเรียงตามลำดับเวลา'}
-            </p>
-          </div>
+                ? 'ตารางเรียนประจำสัปดาห์'
+                : 'รายการวิชาเรียนแยกตามวัน'}
+            </span>
+            <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-slate-200/70 text-slate-600">
+              {courses.length} วิชา
+            </span>
+          </h2>
 
-          <div className="flex items-center space-x-2 self-start sm:self-auto">
-            <button
-              id="btn-add-course-secondary"
-              type="button"
-              onClick={() => handleOpenAddModal('monday')}
-              className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold text-xs border border-blue-200 transition-colors min-h-[34px]"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>เพิ่มวิชาใหม่</span>
-            </button>
-          </div>
+          <button
+            id="btn-add-course-secondary"
+            type="button"
+            onClick={() => handleOpenAddModal('monday')}
+            className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold text-xs border border-blue-200 transition-colors min-h-[34px] shrink-0"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">เพิ่มวิชา</span>
+          </button>
         </div>
 
         {/* Empty State Banner (if no courses exist) */}

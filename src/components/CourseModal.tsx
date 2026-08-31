@@ -193,7 +193,6 @@ export const CourseModal: React.FC<CourseModalProps> = ({
 
   const durationHours = calculateDurationHours(formData.startTime, formData.endTime);
   const isValidTimeRange = durationHours > 0;
-  const activeColorPreset = getColorPreset(formData.colorTheme);
 
   if (!isOpen) return null;
 
@@ -201,33 +200,28 @@ export const CourseModal: React.FC<CourseModalProps> = ({
     <AnimatePresence>
       <div
         id="course-modal-overlay"
-        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto"
+        className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto"
         onClick={(e) => {
           if (e.target === e.currentTarget) handleModalClose();
         }}
       >
         <motion.div
           id="course-modal-content"
-          initial={{ opacity: 0, scale: 0.96, y: 12 }}
+          initial={{ opacity: 0, scale: 0.97, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.96, y: 12 }}
+          exit={{ opacity: 0, scale: 0.97, y: 20 }}
           transition={{ duration: 0.18, ease: 'easeOut' }}
-          className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden my-auto max-h-[92vh] flex flex-col"
+          className="bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden max-h-[95vh] sm:max-h-[90vh] flex flex-col"
         >
           {/* Header */}
-          <div className="px-5 sm:px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/70 shrink-0">
+          <div className="px-4 sm:px-5 py-3 sm:py-3.5 border-b border-slate-100 flex items-center justify-between bg-slate-50/70 shrink-0">
             <div className="flex items-center space-x-2.5">
               <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-xs shrink-0">
                 <BookOpen className="w-4 h-4" />
               </div>
-              <div>
-                <h3 className="text-base font-bold text-slate-900">
-                  {isEditing ? 'แก้ไขข้อมูลวิชาเรียน' : 'เพิ่มวิชาเรียนใหม่'}
-                </h3>
-                <p className="text-xs text-slate-500">
-                  {isEditing ? 'ปรับปรุงรายละเอียดวิชา' : 'กรอกข้อมูลรายวิชาเพื่อจัดลงตาราง'}
-                </p>
-              </div>
+              <h3 className="text-sm sm:text-base font-bold text-slate-900">
+                {isEditing ? 'แก้ไขวิชาเรียน' : 'เพิ่มวิชาเรียนใหม่'}
+              </h3>
             </div>
 
             <button
@@ -245,10 +239,10 @@ export const CourseModal: React.FC<CourseModalProps> = ({
           <form
             id="course-entry-form"
             onSubmit={handleSubmit}
-            className="p-5 sm:p-6 overflow-y-auto space-y-4 text-xs sm:text-sm"
+            className="p-4 sm:p-5 overflow-y-auto space-y-3.5 text-xs sm:text-sm flex-1"
           >
             {/* Row 1: Code & Section */}
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-2.5">
               <div className="col-span-2">
                 <label
                   htmlFor="input-course-code"
@@ -259,7 +253,7 @@ export const CourseModal: React.FC<CourseModalProps> = ({
                 <input
                   id="input-course-code"
                   type="text"
-                  placeholder="เช่น CS201, MA102"
+                  placeholder="เช่น CS201"
                   value={formData.code}
                   onChange={(e) => handleChange('code', e.target.value)}
                   className={`w-full px-3 py-2 rounded-xl border bg-white text-slate-900 placeholder:text-slate-400 font-mono text-xs sm:text-sm focus:outline-hidden focus:ring-2 transition-all ${
@@ -282,7 +276,7 @@ export const CourseModal: React.FC<CourseModalProps> = ({
                   htmlFor="input-course-section"
                   className="block text-xs font-semibold text-slate-700 mb-1"
                 >
-                  กลุ่ม (Sec)
+                  กลุ่ม
                 </label>
                 <input
                   id="input-course-section"
@@ -323,7 +317,7 @@ export const CourseModal: React.FC<CourseModalProps> = ({
               )}
             </div>
 
-            {/* Row 3: Day of Week Selection */}
+            {/* Row 3: Day of Week */}
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                 วันเรียน <span className="text-rose-500">*</span>
@@ -337,16 +331,13 @@ export const CourseModal: React.FC<CourseModalProps> = ({
                       type="button"
                       id={`day-select-btn-${d.key}`}
                       onClick={() => handleChange('day', d.key)}
-                      className={`py-2 px-1 rounded-xl text-xs font-medium flex flex-col items-center justify-center transition-all border min-h-[44px] ${
+                      className={`py-2 px-1 rounded-xl text-xs font-medium flex items-center justify-center transition-all border min-h-[40px] ${
                         isSelected
-                          ? `${d.bgColor} ${d.color} ${d.borderColor} ring-2 ring-blue-500 shadow-2xs font-bold scale-[1.02]`
+                          ? `${d.bgColor} ${d.color} ${d.borderColor} ring-2 ring-blue-500 shadow-2xs font-bold`
                           : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
                       }`}
                     >
                       <span className="font-semibold">{d.shortLabelTh}</span>
-                      <span className="text-[10px] opacity-70 font-normal">
-                        {d.labelEn.slice(0, 3)}
-                      </span>
                     </button>
                   );
                 })}
@@ -359,8 +350,8 @@ export const CourseModal: React.FC<CourseModalProps> = ({
               )}
             </div>
 
-            {/* Row 4: Start & End Time (24h) + Duration */}
-            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/70 space-y-2.5">
+            {/* Row 4: Start & End Time */}
+            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/70 space-y-2">
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label
@@ -415,22 +406,22 @@ export const CourseModal: React.FC<CourseModalProps> = ({
                 </div>
               </div>
 
-              {/* Duration & Presets */}
-              <div className="flex flex-wrap items-center justify-between gap-1.5 pt-1 border-t border-slate-200/50">
+              {/* Duration indicator + Presets (presets hidden on mobile) */}
+              <div className="flex items-center justify-between gap-1.5 pt-1.5 border-t border-slate-200/50">
                 <div className="flex items-center space-x-1.5">
                   <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                   {isValidTimeRange ? (
                     <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                      ระยะเวลา: {durationHours} ชั่วโมง
+                      {durationHours} ชม.
                     </span>
                   ) : (
                     <span className="text-[11px] text-rose-600 font-medium">
-                      เวลาสิ้นสุดต้องมากกว่าเวลาเริ่ม
+                      เวลาไม่ถูกต้อง
                     </span>
                   )}
                 </div>
 
-                <div className="flex items-center space-x-1 overflow-x-auto">
+                <div className="hidden sm:flex items-center space-x-1">
                   {TIME_PRESETS.map((p) => (
                     <button
                       key={p.label}
@@ -452,71 +443,63 @@ export const CourseModal: React.FC<CourseModalProps> = ({
               </div>
             </div>
 
-            {/* Row 5: Room & Color Palette */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label
-                  htmlFor="input-course-room"
-                  className="block text-xs font-semibold text-slate-700 mb-1"
-                >
-                  ห้องเรียน / อาคาร
-                </label>
-                <div className="relative">
-                  <input
-                    id="input-course-room"
-                    type="text"
-                    placeholder="เช่น SCB-2101 หรือ อาคาร 4"
-                    value={formData.room}
-                    onChange={(e) => handleChange('room', e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white text-slate-900 placeholder:text-slate-400 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-100 focus:border-blue-600 transition-all"
-                  />
-                </div>
-              </div>
+            {/* Row 5: Room */}
+            <div>
+              <label
+                htmlFor="input-course-room"
+                className="block text-xs font-semibold text-slate-700 mb-1"
+              >
+                ห้องเรียน / อาคาร
+              </label>
+              <input
+                id="input-course-room"
+                type="text"
+                placeholder="เช่น SCB-2101 หรือ อาคาร 4"
+                value={formData.room}
+                onChange={(e) => handleChange('room', e.target.value)}
+                className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white text-slate-900 placeholder:text-slate-400 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-100 focus:border-blue-600 transition-all"
+              />
+            </div>
 
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="text-xs font-semibold text-slate-700">
-                    สีประจำวิชา
-                  </label>
-                  <span className="text-[11px] text-slate-500 font-medium">
-                    {activeColorPreset.name}
-                  </span>
-                </div>
-                <div className="grid grid-cols-8 gap-1.5">
-                  {COLOR_PRESETS.map((preset) => {
-                    const isSelected = formData.colorTheme === preset.id;
-                    return (
-                      <button
-                        key={preset.id}
-                        type="button"
-                        id={`color-preset-btn-${preset.id}`}
-                        onClick={() => handleChange('colorTheme', preset.id)}
-                        className={`h-8 rounded-lg flex items-center justify-center transition-all ${
-                          preset.pillBg
-                        } ${
-                          isSelected
-                            ? 'ring-2 ring-slate-900 ring-offset-1 scale-105 shadow-xs'
-                            : 'opacity-75 hover:opacity-100'
-                        }`}
-                        title={preset.name}
-                      >
-                        {isSelected && (
-                          <Check className="w-3.5 h-3.5 text-white stroke-[3]" />
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
+            {/* Row 6: Color Palette */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                สีประจำวิชา
+              </label>
+              <div className="grid grid-cols-8 gap-1.5">
+                {COLOR_PRESETS.map((preset) => {
+                  const isSelected = formData.colorTheme === preset.id;
+                  return (
+                    <button
+                      key={preset.id}
+                      type="button"
+                      id={`color-preset-btn-${preset.id}`}
+                      onClick={() => handleChange('colorTheme', preset.id)}
+                      className={`h-8 rounded-lg flex items-center justify-center transition-all ${
+                        preset.pillBg
+                      } ${
+                        isSelected
+                          ? 'ring-2 ring-slate-900 ring-offset-1 scale-105 shadow-xs'
+                          : 'opacity-75 hover:opacity-100'
+                      }`}
+                      title={preset.name}
+                    >
+                      {isSelected && (
+                        <Check className="w-3.5 h-3.5 text-white stroke-[3]" />
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             {/* Actions */}
-            <div className="pt-3 border-t border-slate-100 flex items-center justify-end space-x-2.5 shrink-0">
+            <div className="pt-3 border-t border-slate-100 flex items-center justify-end space-x-2.5 shrink-0 pb-safe">
               <button
                 id="btn-cancel-modal"
                 type="button"
                 onClick={handleModalClose}
-                className="px-4 py-2 rounded-xl text-slate-600 hover:text-slate-800 hover:bg-slate-100 font-medium text-xs sm:text-sm transition-colors min-h-[38px]"
+                className="px-4 py-2 rounded-xl text-slate-600 hover:text-slate-800 hover:bg-slate-100 font-medium text-xs sm:text-sm transition-colors min-h-[40px]"
               >
                 ยกเลิก
               </button>
@@ -524,7 +507,7 @@ export const CourseModal: React.FC<CourseModalProps> = ({
               <button
                 id="btn-save-course"
                 type="submit"
-                className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold text-xs sm:text-sm shadow-sm hover:shadow shadow-blue-600/25 transition-all flex items-center space-x-1.5 min-h-[38px]"
+                className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold text-xs sm:text-sm shadow-sm hover:shadow shadow-blue-600/25 transition-all flex items-center space-x-1.5 min-h-[40px]"
               >
                 <span>{isEditing ? 'บันทึกการแก้ไข' : 'เพิ่มวิชาลงตาราง'}</span>
               </button>

@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 
 export const HowToUseSection: React.FC = () => {
-  const [isExpanded, setIsExpanded] = useState<boolean>(true);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const steps = [
     {

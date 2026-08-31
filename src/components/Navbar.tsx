@@ -82,10 +82,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="btn-add-course-main"
               type="button"
               onClick={onOpenAddModal}
-              className="inline-flex items-center justify-center space-x-1 sm:space-x-1.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm transition-all shadow-sm hover:shadow shadow-blue-600/25 min-h-[38px] sm:min-h-[42px] focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shrink-0 active:scale-95"
+              className="inline-flex items-center justify-center space-x-1 sm:space-x-1.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm transition-all shadow-sm hover:shadow shadow-blue-600/25 min-h-[36px] sm:min-h-[40px] focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shrink-0 active:scale-95"
             >
               <Plus className="w-4 h-4 stroke-[2.5] shrink-0" />
-              <span>+ เพิ่มวิชา</span>
+              <span>เพิ่มวิชา</span>
             </button>
           </div>
         </div>
