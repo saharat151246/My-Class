@@ -1,0 +1,6 @@
+{
+  "name": "My Class",
+  "description": "เว็บแอปพลิเคชันสำหรับจัดและจัดการตารางเรียนส่วนตัวรายสัปดาห์สำหรับนักศึกษา",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
